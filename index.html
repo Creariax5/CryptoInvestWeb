@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Crypto Capital</title>
+    <style>
+        :root {
+            --primary-color: #0f1a2d;
+            --secondary-color: #1e3a8a;
+            --accent-color: #6366f1;
+            --accent-glow: #818cf8;
+            --text-color: #e2e8f0;
+            --card-bg: rgba(17, 25, 40, 0.75);
+            --dark-bg: #050914;
+            --highlight: #22c55e;
+            --highlight-dark: #16a34a;
+            --red: #ef4444;
+            --yellow: #eab308;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--primary-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.3) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(124, 58, 237, 0.3) 0, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.3) 0, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(17, 25, 40, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Navigation */
+        nav {
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            background: rgba(15, 26, 45, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .nav-scrolled {
+            background: rgba(5, 9, 20, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+            background: linear-gradient(120deg, var(--accent-color), var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 5px;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 35px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-glow));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:before {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-glow);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-glow));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 800px;
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+            overflow: hidden;
+        }
+        
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 10% 20%, rgba(29, 78, 216, 0.25) 0, transparent 50%), 
+                       radial-gradient(circle at 90% 30%, rgba(124, 58, 237, 0.25) 0, transparent 50%);
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        
+        .highlight-text {
+            background: linear-gradient(120deg, var(--accent-color), var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 35px;
+            color: rgba(226, 232, 240, 0.85);
+            max-width: 650px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            gap: 30px;
+        }
+        
+        .hero-stat {
+            padding: 15px 25px;
+            border-radius: 16px;
+            flex-grow: 1;
+            background: rgba(17, 25, 40, 0.55);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .hero-stat h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .hero-stat p {
+            font-size: 16px;
+            margin-bottom: 0;
+            color: rgba(226, 232, 240, 0.6);
+        }
+        
+        .hero-stat.positive h3 {
+            color: var(--highlight);
+        }
+        
+        .hero-stat.negative h3 {
+            color: var(--red);
+        }
+        
+        /* Ticker Section */
+        .ticker-section {
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--dark-bg);
+        }
+        
+        .ticker-container {
+            display: flex;
+            animation: ticker 30s linear infinite;
+            white-space: nowrap;
+        }
+        
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 30px;
+            min-width: max-content;
+            font-weight: 500;
+        }
+        
+        .ticker-item img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .ticker-item span {
+            margin-right: 15px;
+        }
+        
+        .ticker-item .price {
+            font-weight: 600;
+        }
+        
+        .ticker-item .change {
+            margin-left: 5px;
+            font-size: 14px;
+        }
+        
+        .ticker-item .positive {
+            color: var(--highlight);
+        }
+        
+        .ticker-item .negative {
+            color: var(--red);
+        }
+        
+        @keyframes ticker {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 120px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-glow));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(226, 232, 240, 0.7);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-box {
+            padding: 35px 30px;
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stat-box h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .key-figure {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .key-figure:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .key-figure h4 {
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(226, 232, 240, 0.7);
+        }
+        
+        .key-figure p {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .key-figure p.positive {
+            color: var(--highlight);
+        }
+        
+        .key-figure p.negative {
+            color: var(--red);
+        }
+        
+        .key-figure p.highlight {
+            color: var(--accent-glow);
+        }
+        
+        /* Performance Chart */
+        .performance {
+            padding: 120px 0;
+            background-color: rgba(5, 9, 20, 0.5);
+        }
+        
+        .chart-container {
+            padding: 40px;
+            border-radius: 16px;
+            margin-top: 50px;
+            height: 500px;
+        }
+        
+        .chart-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .chart-tab {
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .chart-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .chart-tab.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-glow));
+            color: white;
+        }
+        
+        /* Strategy Section */
+        .strategy {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .strategy-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .strategy-card {
+            padding: 35px 30px;
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .strategy-card:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0));
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        
+        .strategy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .strategy-card:hover:before {
+            opacity: 1;
+        }
+        
+        .strategy-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .strategy-card h3 i {
+            margin-right: 12px;
+            font-size: 24px;
+            color: var(--accent-color);
+        }
+        
+        .strategy-card p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: rgba(226, 232, 240, 0.7);
+        }
+        
+        .strategy-card .allocation {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-glow);
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 120px 0;
+            background-color: rgba(5, 9, 20, 0.5);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+        
+        .portfolio-item {
+            padding: 25px;
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .portfolio-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+        
+        .portfolio-item h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .portfolio-item .allocation {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: rgba(226, 232, 240, 0.7);
+        }
+        
+        .portfolio-item .change {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .portfolio-item .positive {
+            color: var(--highlight);
+        }
+        
+        .portfolio-item .negative {
+            color: var(--red);
+        }
+        
+        /* Team Section */
+        .team {
+            padding: 120px 0;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .team-member {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .member-image {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.05);
+        }
+        
+        .member-image:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, rgba(17, 25, 40, 1), transparent);
+        }
+        
+        .member-info {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .member-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .member-info h4 {
+            font-size: 16px;
+            color: var(--accent-glow);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .member-info p {
+            font-size: 15px;
+            margin-bottom: 20px;
+            color: rgba(226, 232, 240, 0.7);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 0;
+            background-color: rgba(5, 9, 20, 0.5);
+            overflow: hidden;
+        }
+        
+        .testimonial-slider {
+            margin-top: 50px;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            gap: 30px;
+            padding: 20px 0;
+        }
+        
+        .testimonial-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial {
+            scroll-snap-align: start;
+            min-width: 400px;
+            padding: 35px;
+            border-radius: 16px;
+            position: relative;
+            flex: 0 0 auto;
+            width: calc(33.333% - 20px);
+        }
+        
+        .testimonial:before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 120px;
+            line-height: 0;
+            color: rgba(99, 102, 241, 0.1);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: rgba(226, 232, 240, 0.85);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+        
+        .author-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: white;
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            margin-bottom: 0;
+            color: rgba(226, 232, 240, 0.6);
+        }
+        
+        /* Call to Action */
+        .cta {
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+        
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: rgba(226, 232, 240, 0.8);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .secondary-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .secondary-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 120px 0;
+            background-color: rgba(5, 9, 20, 0.5);
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 50px;
+        }
+        
+        .contact-info {
+            padding-right: 30px;
+        }
+        
+        .contact-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .contact-info p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: rgba(226, 232, 240, 0.7);
+        }
+        
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .contact-item i {
+            width: 50px;
+            height: 50px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 20px;
+            color: var(--accent-glow);
+        }
+        
+        .contact-item-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .contact-item-info p {
+            font-size: 16px;
+            margin-bottom: 0;
+            color: rgba(226, 232, 240, 0.7);
+        }
+        
+        .contact-form {
+            padding: 40px;
+            border-radius: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .footer-info {
+            padding-right: 30px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .footer-logo span {
+            background: linear-gradient(120deg, var(--accent-color), var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 5px;
+        }
+        
+        .footer-info p {
+            font-size: 15px;
+            margin-bottom: 25px;
+            color: rgba(226, 232, 240, 0.6);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-social a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(226, 232, 240, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 15px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-links a:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-glow);
+            padding-left: 20px;
+        }
+        
+        .footer-links a:hover:before {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: rgba(226, 232, 240, 0.5);
+        }
+        
+        .copyright p:last-child {
+            margin-top: 10px;
+        }
+        
+        /* Float Element Animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .float-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media screen and (max-width: 1200px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+            
+            .testimonial {
+                width: calc(50% - 15px);
+            }
+        }
+        
+        @media screen and (max-width: 992px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                padding-right: 0;
+            }
+            
+            .testimonial {
+                width: calc(100% - 30px);
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.1/chart.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">⬢</span>
+                Quantum <span>Crypto</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#stats">Performance</a></li>
+                <li><a href="#strategy">Strategy</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="cta-button">Invest Now</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div id="particles-js" class="hero-particles"></div>
+        <div class="container hero-content">
+            <h1>Next-Generation <span class="highlight-text">Crypto Investment</span> Fund</h1>
+            <p>Pioneering algorithmic trading strategies across DeFi, Web3, and blockchain ecosystems to generate alpha in all market conditions.</p>
+            <a href="#stats" class="cta-button">View Performance</a>
+            
+            <div class="hero-stats">
+                <div class="hero-stat positive">
+                    <h3>+172%</h3>
+                    <p>Since Inception</p>
+                </div>
+                <div class="hero-stat">
+                    <h3>$210M</h3>
+                    <p>AUM</p>
+                </div>
+                <div class="hero-stat positive">
+                    <h3>2.45</h3>
+                    <p>Sharpe Ratio</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Crypto Ticker -->
+    <section class="ticker-section">
+        <div class="ticker-container">
+            <div class="ticker-item">
+                <div style="width: 24px; height: 24px; background-color: #f59e0b; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white;">₿</div>
+                <span>Bitcoin</span>
+                <span class="price">$64,589.43</span>
+                <span class="change positive">+2.4%</span>
+            </div>
+            <div class="ticker-item">
+                <div style="width: 24px; height: 24px; background-color: #6366f1; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white;">Ξ</div>
+                <span>Ethereum</span>
+                <span class="price">$3,482.17</span>
+                <span class="change positive">+3.8%</span>
+            </div>
+            <div class="ticker-item">
+                <div style="width: 24px; height: 24px; background-color: #22c55e; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white;">◎</div>
+                <span>Solana</span>
+                <span class="price">$139.52</span>
+                <span class="change positive">+5.2%</span>
+            </div>
+            <div class="ticker-item">
+                <div style="width: 24px; height: 24px; background-color: #e11d48; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white;">A</div>
+                <span>Avalanche</span>
+                <span class="price">$37.89</span>
+                <span class="change positive">+1.7%</span>
+            </div>
+            <div class="ticker-item">
+                <div style="width: 24px; height: 24px; background-color: #a855f7; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white;">•</div>
+                <span>Polkadot</span>
+                <span class="price">$9.48</span>
+                <span class="change negative">-0.9%</span>
+            </div>
+            <div class="ticker-item">
+                <img src="/api/placeholder/24/24" alt="BNB">
+                <span>Binance Coin</span>
+                <span class="price">$598.23</span>
+                <span class="change positive">+1.2%</span>
+            </div>
+            <div class="ticker-item">
+                <img src="/api/placeholder/24/24" alt="ADA">
+                <span>Cardano</span>
+                <span class="price">$0.68</span>
+                <span class="change negative">-0.5%</span>
+            </div>
+            <!-- Duplicate for seamless looping -->
+            <div class="ticker-item">
+                <div style="width: 24px; height: 24px; background-color: #f59e0b; border-radius: 50%; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white;">₿</div>
+                <span>Bitcoin</span>
+                <span class="price">$64,589.43</span>
+                <span class="change positive">+2.4%</span>
+            </div>
+            <div class="ticker-item">
+                <img src="/api/placeholder/24/24" alt="ETH">
+                <span>Ethereum</span>
+                <span class="price">$3,482.17</span>
+                <span class="change positive">+3.8%</span>
+            </div>
+            <div class="ticker-item">
+                <img src="/api/placeholder/24/24" alt="SOL">
+                <span>Solana</span>
+                <span class="price">$139.52</span>
+                <span class="change positive">+5.2%</span>
+            </div>
+            <div class="ticker-item">
+                <img src="/api/placeholder/24/24" alt="AVAX">
+                <span>Avalanche</span>
+                <span class="price">$37.89</span>
+                <span class="change positive">+1.7%</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section id="stats" class="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2>Fund Performance</h2>
+                <p>Quantum Crypto Capital has consistently outperformed major crypto indices while maintaining lower volatility.</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box glass">
+                    <h3>Fund Overview</h3>
+                    <div class="key-figure">
+                        <h4>Assets Under Management</h4>
+                        <p class="highlight">$210 Million</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Fund Inception</h4>
+                        <p>April 2021</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Minimum Investment</h4>
+                        <p>$100,000</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Management Fee</h4>
+                        <p>2.0%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Performance Fee</h4>
+                        <p>20%</p>
+                    </div>
+                </div>
+                <div class="stat-box glass">
+                    <h3>Performance Metrics</h3>
+                    <div class="key-figure">
+                        <h4>YTD Return</h4>
+                        <p class="positive">+37.8%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>3-Month Return</h4>
+                        <p class="positive">+18.3%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>6-Month Return</h4>
+                        <p class="positive">+42.7%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Since Inception</h4>
+                        <p class="positive">+172.5%</p>
+                    </div>
+                </div>
+                <div class="stat-box glass">
+                    <h3>Risk Metrics</h3>
+                    <div class="key-figure">
+                        <h4>Sharpe Ratio</h4>
+                        <p class="highlight">2.45</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Sortino Ratio</h4>
+                        <p class="highlight">3.12</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Max Drawdown</h4>
+                        <p class="negative">-28.3%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>Beta (vs. BTC)</h4>
+                        <p>0.72</p>
+                    </div>
+                </div>
+                <div class="stat-box glass">
+                    <h3>Benchmark Comparison</h3>
+                    <div class="key-figure">
+                        <h4>vs Bitcoin (1Y)</h4>
+                        <p class="positive">+18.5%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>vs Ethereum (1Y)</h4>
+                        <p class="positive">+14.2%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>vs Crypto Index (1Y)</h4>
+                        <p class="positive">+22.7%</p>
+                    </div>
+                    <div class="key-figure">
+                        <h4>vs S&P 500 (1Y)</h4>
+                        <p class="positive">+28.9%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Performance Chart Section -->
+    <section class="performance">
+        <div class="container">
+            <div class="section-header">
+                <h2>Historical Performance</h2>
+                <p>Track record of superior returns compared to major crypto assets and indices.</p>
+            </div>
+            
+            <div class="chart-tabs">
+                <div class="chart-tab active">3 Months</div>
+                <div class="chart-tab">6 Months</div>
+                <div class="chart-tab">1 Year</div>
+                <div class="chart-tab">Since Inception</div>
+            </div>
+            
+            <div class="chart-container glass">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Strategy Section -->
+    <section id="strategy" class="strategy">
+        <div class="container">
+            <div class="section-header">
+                <h2>Investment Strategies</h2>
+                <p>Our multi-strategy approach employs algorithmic trading, on-chain analysis, and machine learning to capitalize on inefficiencies across crypto markets.</p>
+            </div>
+            <div class="strategy-cards">
+                <div class="strategy-card glass">
+                    <h3>
+                        <i>⚖️</i>
+                        Market Neutral
+                    </h3>
+                    <p>Employing statistical arbitrage and relative value strategies to capitalize on price discrepancies while maintaining minimal directional exposure to market movements.</p>
+                    <p class="allocation">Allocation: 30%</p>
+                </div>
+                <div class="strategy-card glass">
+                    <h3>
+                        <i>📈</i>
+                        DeFi Yield Farming
+                    </h3>
+                    <p>Generating steady returns through optimized liquidity provision, staking, and lending activities across leading DeFi protocols with active risk management.</p>
+                    <p class="allocation">Allocation: 25%</p>
+                </div>
+                <div class="strategy-card glass">
+                    <h3>
+                        <i>🔄</i>
+                        Directional Trading
+                    </h3>
+                    <p>Taking calculated long and short positions based on proprietary technical indicators, sentiment analysis, and on-chain metrics that signal market momentum.</p>
+                    <p class="allocation">Allocation: 20%</p>
+                </div>
+                <div class="strategy-card glass">
+                    <h3>
+                        <i>🌱</i>
+                        Early-Stage Projects
+                    </h3>
+                    <p>Strategic investments in promising protocols, tokens, and Web3 ventures after thorough technical and fundamental analysis to capture long-term value creation.</p>
+                    <p class="allocation">Allocation: 15%</p>
+                </div>
+                <div class="strategy-card glass">
+                    <h3>
+                        <i>🏛️</i>
+                        Stablecoin Optimization
+                    </h3>
+                    <p>Maximizing yield on stablecoin holdings through a diversified basket of lending platforms, liquidity pools, and structured products while maintaining capital preservation.</p>
+                    <p class="allocation">Allocation: 10%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2>Current Portfolio</h2>
+                <p>Our dynamic portfolio allocation reflects our strategic investment thesis across the crypto ecosystem.</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">₿</div>
+                    <h3>Bitcoin</h3>
+                    <div class="allocation">18% Allocation</div>
+                    <div class="change positive">+42.3% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">Ξ</div>
+                    <h3>Ethereum</h3>
+                    <div class="allocation">22% Allocation</div>
+                    <div class="change positive">+65.8% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">◎</div>
+                    <h3>Solana</h3>
+                    <div class="allocation">8% Allocation</div>
+                    <div class="change positive">+128.4% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">Ṗ</div>
+                    <h3>Polkadot</h3>
+                    <div class="allocation">5% Allocation</div>
+                    <div class="change negative">-12.5% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">A</div>
+                    <h3>Avalanche</h3>
+                    <div class="allocation">6% Allocation</div>
+                    <div class="change positive">+47.2% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">$</div>
+                    <h3>Stablecoins</h3>
+                    <div class="allocation">15% Allocation</div>
+                    <div class="change positive">+8.4% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">🦄</div>
+                    <h3>DeFi Tokens</h3>
+                    <div class="allocation">12% Allocation</div>
+                    <div class="change positive">+38.7% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">🎮</div>
+                    <h3>GameFi / NFTs</h3>
+                    <div class="allocation">7% Allocation</div>
+                    <div class="change positive">+52.3% ROI</div>
+                </div>
+                <div class="portfolio-item glass">
+                    <div class="portfolio-icon">🔮</div>
+                    <h3>Layer 2s</h3>
+                    <div class="allocation">7% Allocation</div>
+                    <div class="change positive">+84.6% ROI</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Team</h2>
+                <p>Led by pioneers in cryptocurrency trading, blockchain technology, and quantitative finance.</p>
+            </div>
+            <div class="team-members">
+                <div class="team-member glass">
+                    <div class="member-image">
+                        <div style="background-color: #1e3a8a; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">
+                            AN
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Alex Nakamoto</h3>
+                        <h4>Founder & CIO</h4>
+                        <p>Former Head of Crypto Trading at Galaxy Digital with 9+ years of blockchain experience. Early Bitcoin developer and DeFi pioneer.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">T</a>
+                            <a href="#" class="social-link">L</a>
+                            <a href="#" class="social-link">G</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member glass">
+                    <div class="member-image">
+                        <div style="background-color: #6366f1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">
+                            SW
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Dr. Sarah Wei</h3>
+                        <h4>Chief Technology Officer</h4>
+                        <p>PhD in Cryptography from MIT. Led blockchain R&D at Chainlink. Specializes in zero-knowledge proofs and automated market making algorithms.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">T</a>
+                            <a href="#" class="social-link">L</a>
+                            <a href="#" class="social-link">G</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member glass">
+                    <div class="member-image">
+                        <div style="background-color: #22c55e; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px;">
+                            MR
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Marcus Rodriguez</h3>
+                        <h4>Head of Quantitative Research</h4>
+                        <p>Former Senior Quant at Jump Trading. Masters in Financial Engineering from Berkeley. 12+ years developing trading algorithms for crypto and traditional markets.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">T</a>
+                            <a href="#" class="social-link">L</a>
+                            <a href="#" class="social-link">G</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Investor Testimonials</h2>
+                <p>Hear from our valued investors about their experience with Quantum Crypto Capital.</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial glass">
+                    <div class="testimonial-content">
+                        <p>"Quantum Crypto's approach to risk management is what sets them apart. Even during the market downturn, their strategies remained resilient, protecting capital while competitors faltered."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <div style="background-color: #1e3a8a; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">
+                                    MC
+                                </div>
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Chen</h4>
+                                <p>Family Office Director</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial glass">
+                    <div class="testimonial-content">
+                        <p>"As institutional investors entering the crypto space, we needed a partner with sophisticated infrastructure and compliance standards. Quantum Crypto has exceeded our expectations on all fronts."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <div style="background-color: #6366f1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">
+                                    JB
+                                </div>
+                            </div>
+                            <div class="author-info">
+                                <h4>Jennifer Blackwell</h4>
+                                <p>Investment Director, Atlantic Capital</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial glass">
+                    <div class="testimonial-content">
+                        <p>"The transparency and detailed reporting provided by the team gives me confidence in my investment. Their technical expertise in DeFi yield strategies has delivered consistent returns regardless of market conditions."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <div style="background-color: #22c55e; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px;">
+                                    TW
+                                </div>
+                            </div>
+                            <div class="author-info">
+                                <h4>Thomas Wright</h4>
+                                <p>Angel Investor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to <span class="highlight-text">Invest</span> in the Future of Finance?</h2>
+                <p>Join leading investors gaining exposure to the crypto asset class through our professionally managed fund.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="cta-button">Schedule a Consultation</a>
+                    <a href="#" class="secondary-button">Download Fund Deck</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get in Touch</h2>
+                <p>Interested in investing with Quantum Crypto Capital? Contact our investor relations team.</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Our team is available to answer your questions about our fund strategies, performance metrics, and investment process.</p>
+                    
+                    <div class="contact-item">
+                        <i>📍</i>
+                        <div class="contact-item-info">
+                            <h4>Location</h4>
+                            <p>One Market Street, Suite 3600<br>San Francisco, CA 94105</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i>📧</i>
+                        <div class="contact-item-info">
+                            <h4>Email</h4>
+                            <p>investors@quantumcrypto.fund</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i>📱</i>
+                        <div class="contact-item-info">
+                            <h4>Phone</h4>
+                            <p>+1 (415) 555-2398</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i>💬</i>
+                        <div class="contact-item-info">
+                            <h4>Telegram</h4>
+                            <p>@QuantumCryptoIR</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form glass">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="investment">Investment Capacity</label>
+                            <select id="investment">
+                                <option value="">Select investment range</option>
+                                <option value="100k-250k">$100,000 - $250,000</option>
+                                <option value="250k-500k">$250,000 - $500,000</option>
+                                <option value="500k-1m">$500,000 - $1,000,000</option>
+                                <option value="1m-5m">$1,000,000 - $5,000,000</option>
+                                <option value="5m+">$5,000,000+</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="investor-type">Investor Type</label>
+                            <select id="investor-type">
+                                <option value="">Select investor type</option>
+                                <option value="individual">Individual Investor</option>
+                                <option value="accredited">Accredited Investor</option>
+                                <option value="family-office">Family Office</option>
+                                <option value="vc">Venture Capital</option>
+                                <option value="institution">Institutional Investor</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="How can we help you?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="cta-button">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-info">
+                <div class="footer-logo">
+                    <span class="logo-icon">⬢</span>
+                    Quantum <span>Crypto</span>
+                </div>
+                <p>A next-generation cryptocurrency hedge fund leveraging quantitative strategies and blockchain technology to deliver exceptional returns for accredited investors.</p>
+                <div class="footer-social">
+                    <a href="#">T</a>
+                    <a href="#">L</a>
+                    <a href="#">D</a>
+                    <a href="#">G</a>
+                    <a href="#">M</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#stats">Performance</a></li>
+                    <li><a href="#strategy">Strategy</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Investment Deck</a></li>
+                    <li><a href="#">Monthly Reports</a></li>
+                    <li><a href="#">Market Research</a></li>
+                    <li><a href="#">Crypto Insights</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Risk Disclosure</a></li>
+                    <li><a href="#">AML Policy</a></li>
+                    <li><a href="#">Regulatory Information</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 Quantum Crypto Capital. All rights reserved.</p>
+                <p>Cryptocurrency investments are subject to high market risk. Past performance is not indicative of future results. Only invest what you can afford to lose.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Chart.js is loaded
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded. Adding script tag dynamically.');
+                // Add script tag dynamically if Chart is not loaded
+                var script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js';
+                script.onload = initializeChart;
+                document.head.appendChild(script);
+            } else {
+                initializeChart();
+            }
+            
+            function initializeChart() {
+                try {
+                    const ctx = document.getElementById('performanceChart').getContext('2d');
+                    
+                    // Create gradient for the area under the line
+                    const gradientFill = ctx.createLinearGradient(0, 0, 0, 400);
+                    gradientFill.addColorStop(0, 'rgba(99, 102, 241, 0.3)');
+                    gradientFill.addColorStop(1, 'rgba(99, 102, 241, 0.05)');
+                    
+                    const performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        label: 'Quantum Crypto Fund',
+                        data: [100, 112, 128, 135, 142, 152, 165, 158, 172, 185, 195, 208],
+                        backgroundColor: gradientFill,
+                        borderColor: '#6366f1',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#6366f1',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 8
+                    },
+                    {
+                        label: 'Bitcoin',
+                        data: [100, 108, 115, 110, 118, 125, 132, 120, 130, 138, 142, 150],
+                        borderColor: '#f59e0b',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        borderDash: [5, 5]
+                    },
+                    {
+                        label: 'Crypto Market Index',
+                        data: [100, 105, 112, 105, 110, 115, 120, 110, 115, 123, 128, 135],
+                        borderColor: '#94a3b8',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 5,
+                        borderDash: [2, 2]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: 'rgba(226, 232, 240, 0.8)',
+                            font: {
+                                size: 14,
+                                family: "'Inter', sans-serif"
+                            },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(17, 25, 40, 0.8)',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        bodyFont: {
+                            family: "'Inter', sans-serif",
+                            size: 14
+                        },
+                        titleFont: {
+                            family: "'Inter', sans-serif",
+                            size: 16,
+                            weight: 'bold'
+                        },
+                        padding: 12,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    // Calculate percentage gain from baseline 100
+                                    const percentGain = ((context.parsed.y - 100) / 100 * 100).toFixed(1);
+                                    label += `Index ${context.parsed.y} (${percentGain}%)`;
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Performance Index (Base: 100)',
+                            color: 'rgba(226, 232, 240, 0.7)',
+                            font: {
+                                family: "'Inter', sans-serif",
+                                size: 14
+                            }
+                        },
+                        ticks: {
+                            color: 'rgba(226, 232, 240, 0.7)',
+                            font: {
+                                family: "'Inter', sans-serif"
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(226, 232, 240, 0.1)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '2024',
+                            color: 'rgba(226, 232, 240, 0.7)',
+                            font: {
+                                family: "'Inter', sans-serif",
+                                size: 14
+                            }
+                        },
+                        ticks: {
+                            color: 'rgba(226, 232, 240, 0.7)',
+                            font: {
+                                family: "'Inter', sans-serif"
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(226, 232, 240, 0.05)'
+                        }
+                    }
+                }
+            }
+                            });
+                    
+                    // Chart tabs functionality
+                    const chartTabs = document.querySelectorAll('.chart-tab');
+                    chartTabs.forEach(tab => {
+                        tab.addEventListener('click', () => {
+                            // Remove active class from all tabs
+                            chartTabs.forEach(t => t.classList.remove('active'));
+                            // Add active class to clicked tab
+                            tab.classList.add('active');
+                            
+                            // Update chart data based on selected timeframe
+                            // This would typically fetch new data or filter existing data
+                            // For demo purposes, we'll just simulate different data for each tab
+                            
+                            let newData;
+                            let timeLabel;
+                            
+                            if (tab.textContent === '3 Months') {
+                                newData = {
+                                    labels: ['Oct', 'Nov', 'Dec'],
+                                    fund: [100, 112, 125],
+                                    btc: [100, 108, 115],
+                                    index: [100, 105, 110]
+                                };
+                                timeLabel = 'Q4 2024';
+                            } else if (tab.textContent === '6 Months') {
+                                newData = {
+                                    labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                    fund: [100, 106, 118, 125, 142, 158],
+                                    btc: [100, 95, 103, 110, 120, 128],
+                                    index: [100, 98, 105, 110, 115, 120]
+                                };
+                                timeLabel = 'H2 2024';
+                            } else if (tab.textContent === '1 Year') {
+                                newData = {
+                                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                    fund: [100, 112, 128, 135, 142, 152, 165, 158, 172, 185, 195, 208],
+                                    btc: [100, 108, 115, 110, 118, 125, 132, 120, 130, 138, 142, 150],
+                                    index: [100, 105, 112, 105, 110, 115, 120, 110, 115, 123, 128, 135]
+                                };
+                                timeLabel = '2024';
+                            } else {
+                                newData = {
+                                    labels: ['Q2-21', 'Q3-21', 'Q4-21', 'Q1-22', 'Q2-22', 'Q3-22', 'Q4-22', 'Q1-23', 'Q2-23', 'Q3-23', 'Q4-23', 'Q1-24', 'Q2-24', 'Q3-24', 'Q4-24'],
+                                    fund: [100, 115, 128, 118, 132, 120, 135, 152, 170, 190, 205, 220, 245, 260, 272],
+                                    btc: [100, 120, 105, 90, 110, 95, 85, 105, 125, 140, 130, 150, 165, 155, 170],
+                                    index: [100, 112, 105, 95, 105, 98, 90, 100, 115, 125, 118, 130, 145, 140, 150]
+                                };
+                                timeLabel = 'Since Inception';
+                            }
+                            
+                            // Update chart
+                            performanceChart.data.labels = newData.labels;
+                            performanceChart.data.datasets[0].data = newData.fund;
+                            performanceChart.data.datasets[1].data = newData.btc;
+                            performanceChart.data.datasets[2].data = newData.index;
+                            performanceChart.options.scales.x.title.text = timeLabel;
+                            performanceChart.update();
+                        });
+                    });
+                } catch (error) {
+                    console.error('Error initializing chart:', error);
+                    document.getElementById('performanceChart').innerHTML = 
+                        '<div style="display:flex;align-items:center;justify-content:center;height:400px;color:white;">Chart loading error. Please refresh the page.</div>';
+                }
+            }
+        });
+        
+        // Mobile menu toggle would go here
+        // For a production site, we would add hamburger menu functionality
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections for scroll animations
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
