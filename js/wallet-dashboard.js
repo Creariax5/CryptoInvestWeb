@@ -1,7 +1,7 @@
 // wallet-dashboard.js - Fetch and display wallet dashboard data
 
 // API URL
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://crypto-invest-dashboard-api.vercel.app/api';
 
 // DOM Elements
 const walletAddressDisplay = document.getElementById('walletAddress');
